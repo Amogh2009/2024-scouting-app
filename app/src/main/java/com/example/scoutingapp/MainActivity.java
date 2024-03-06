@@ -175,6 +175,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int speaker_teleopv; int amp_teleopv; int amplified_speaker_teleopv;
     int amp_fail_autonv; int speaker_fail_autonv;
     int amp_fail_teleopv; int speaker_fail_teleopv;
+    int amp_block_autonv; int speaker_block_autonv;
+    int amp_block_teleopv; int speaker_block_teleopv;
     String spotlightv; String buddy_climbv;
     String trapv; String onstagev; int blocksv;
     int shots_blockedv;
@@ -187,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int amplify_timerv;
     int speaker_scoredv=0; int amp_scoredv=0; // for display use only not actual data sent to sheet
 //for switching between auton and teleop
+    int speaker_failedv=0; int amp_failedv=0;
     private TabLayout tablayout;
     private ViewPager viewpager;
     //textview, editview, and button definitions in order shown on app top to bottom
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MaterialButton switch_to_teleop;
     ToggleButton red_alliance, blue_alliance;
     TextView speakers_scored,amps_scored;
+    TextView speakers_failed,amps_failed;
     ToggleButton switch_auton, switch_teleop;
     ToggleButton source_pickup, ground_pickup, amplify;
     ToggleButton speaker, amp;
@@ -239,6 +243,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //text views for display
         speakers_scored = findViewById(R.id.speakers_scored);
         amps_scored = findViewById(R.id.amps_scored);
+        speakers_failed = findViewById(R.id.speakers_failed);
+        amps_failed = findViewById(R.id.amps_failed);
 //toggle buttons
         red_alliance = (ToggleButton) findViewById(R.id.red_alliance);
         blue_alliance = (ToggleButton) findViewById(R.id.blue_alliance);
@@ -319,6 +325,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					match_num.setText("");
 					speakers_scored.setText("0");
 					amps_scored.setText("0");
+                    speakers_failed.setText("0");
+                    amps_failed.setText("0");
 					times_blocked.setText("0");
 					for (ToggleButton button : new ToggleButton[]{switch_auton, switch_teleop, source_pickup, ground_pickup, amp, speaker, succesful_spotlight, no_try_spotlight, unsuccesful_spotlight, succesful_harmony, no_try_harmony, unsuccesful_harmony, succesful_trap, no_try_trap, unsuccesful_trap, succesful_onstage, no_try_onstage, unsuccesful_onstage, region_1, region_2, region_3, region_4, region_5}) {
 						button.setChecked(false);
@@ -389,6 +397,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 speaker_scoredv=0;
                 amps_scored.setText("0");
                 speakers_scored.setText("0");
+                amps_failed.setText("0");
+                speakers_failed.setText("0");
                 START_TIME_IN_MILLIS = 15000;
                 resetTimer();
             }
@@ -467,6 +477,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     speaker_fail_autonv++;
                 } else if(speakerv&&!autonv) {
                     speaker_fail_teleopv++;}
+
+                if(speakerv){
+                    speaker_failedv ++;
+                    speakers_failed.setText(String.valueOf(speaker_failedv));                }
+                if(ampv){
+                    amp_failedv ++;
+                    amps_failed.setText(String.valueOf(amp_failedv));
+                }
+
                 groundv=false;
                 sourcev=false;
                 ampv=false;
@@ -540,6 +559,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shots_blocked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listv += ", failed " + (mTimeLeftInMillis / 1000);
+                if(ampv&&autonv) {
+                    amp_block_autonv++;
+                } else if (ampv&&!autonv) {
+                    amp_block_teleopv++;
+                } else if(speakerv&&autonv) {
+                    speaker_block_autonv++;
+                } else if(speakerv&&!autonv) {
+                    speaker_block_teleopv++;}
+
+                if(speakerv){
+                    speaker_failedv ++;
+                    speakers_failed.setText(String.valueOf(speaker_failedv));                }
+                if(ampv){
+                    amp_failedv ++;
+                    amps_failed.setText(String.valueOf(amp_failedv));
+                }
+
                 shots_blockedv++;
                 groundv=false;
                 sourcev=false;

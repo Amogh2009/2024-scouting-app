@@ -366,7 +366,7 @@
 						android:textOn="AMP" />
 
 					<TextView
-						android:layout_width="wrap_content"
+						android:layout_width="92dp"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="310dp"
 						android:layout_marginTop="10dp"
@@ -388,7 +388,7 @@
 
 					<TextView
 						android:id="@+id/textView2"
-						android:layout_width="wrap_content"
+						android:layout_width="83dp"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="315dp"
 						android:layout_marginTop="100dp"
@@ -402,6 +402,46 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginStart="330dp"
+						android:layout_marginTop="130dp"
+						android:text="0"
+						android:textColor="@color/white"
+						android:textSize="50sp" />
+					<TextView
+						android:layout_width="74dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="400dp"
+						android:layout_marginTop="10dp"
+						android:fontFamily="@font/red_hat_display_black"
+						android:text="Speakers Failed:"
+						android:textColor="@color/white"
+						android:textSize="15sp" />
+
+					<TextView
+						android:id="@+id/speakers_failed"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="420dp"
+						android:layout_marginTop="40dp"
+						android:text="0"
+
+						android:textColor="@color/white"
+						android:textSize="50sp" />
+
+					<TextView
+						android:layout_width="71dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="405dp"
+						android:layout_marginTop="100dp"
+						android:fontFamily="@font/red_hat_display_black"
+						android:text="AMPs Failed:"
+						android:textColor="@color/white"
+						android:textSize="16sp" />
+
+					<TextView
+						android:id="@+id/amps_failed"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="420dp"
 						android:layout_marginTop="130dp"
 						android:text="0"
 						android:textColor="@color/white"
