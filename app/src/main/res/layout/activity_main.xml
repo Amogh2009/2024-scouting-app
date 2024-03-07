@@ -39,13 +39,8 @@
 					android:textColor="#FFFFFF"
 					android:textSize="28sp" />
 
-				<com.google.android.material.button.MaterialButton
-					android:id="@+id/switch_to_teleop"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Swap between Auton / Teleop" />
-
 				<LinearLayout
+					android:layout_marginTop="20dp"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content">
 
@@ -128,6 +123,7 @@
 
 					<com.google.android.material.button.MaterialButton
 						style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+						android:layout_marginLeft="5dp"
 						android:layout_width="250dp"
 						android:layout_height="80dp"
 						android:layout_toEndOf="@+id/alliancething"

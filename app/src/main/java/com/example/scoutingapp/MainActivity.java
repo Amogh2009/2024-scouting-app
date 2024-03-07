@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText scout_name, team_num, match_num;
     TextView mTextViewCountDown;
     Button mButtonStartPause, mButtonReset;
-    MaterialButton switch_to_teleop;
+    //MaterialButton switch_to_teleop;
     ToggleButton red_alliance, blue_alliance;
     TextView speakers_scored,amps_scored;
     TextView speakers_failed,amps_failed;
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        switch_to_teleop = findViewById(R.id.switch_to_teleop);
+        //switch_to_teleop = findViewById(R.id.switch_to_teleop);
 
         //tablayout = findViewById(R.id.tablayout);
         //viewpager = findViewById(R.id.viewpager);
@@ -712,6 +712,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mButtonStartPause.setText("Start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
+
+                /*if(autonv){
+                    autonv=false;
+                    switch_auton.setChecked(false);
+                    switch_teleop.setChecked(true);
+                }*/
             }
         }.start();
 
