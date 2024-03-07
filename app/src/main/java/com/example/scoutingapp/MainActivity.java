@@ -37,75 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amp.setChecked(false);
         speaker.setChecked(false);
     }
-    void hideall(){
-        mTextViewCountDown.setVisibility(View.INVISIBLE);
-        mButtonStartPause.setVisibility(View.INVISIBLE);
-        mButtonReset.setVisibility(View.INVISIBLE);
-        switch_auton.setVisibility(View.INVISIBLE);
-        switch_teleop.setVisibility(View.INVISIBLE);
+    void autonview(){
         source_pickup.setVisibility(View.INVISIBLE);
-        ground_pickup.setVisibility(View.INVISIBLE);
-//        amplify.setVisibility(View.INVISIBLE); something wrong with this line it causes program to crash
-        speaker.setVisibility(View.INVISIBLE);
-        amp.setVisibility(View.INVISIBLE);
-        fail.setVisibility(View.INVISIBLE);
-        score.setVisibility(View.INVISIBLE);
-        undo.setVisibility(View.INVISIBLE);
-        succesful_spotlight.setVisibility(View.INVISIBLE);
-        no_try_spotlight.setVisibility(View.INVISIBLE);
-        unsuccesful_spotlight.setVisibility(View.INVISIBLE);
-        succesful_harmony.setVisibility(View.INVISIBLE);
-        no_try_harmony.setVisibility(View.INVISIBLE);
-        unsuccesful_harmony.setVisibility(View.INVISIBLE);
-        succesful_trap.setVisibility(View.INVISIBLE);
-        no_try_trap.setVisibility(View.INVISIBLE);
-        unsuccesful_trap.setVisibility(View.INVISIBLE);
-        succesful_onstage.setVisibility(View.INVISIBLE);
-        no_try_onstage.setVisibility(View.INVISIBLE);
-        unsuccesful_onstage.setVisibility(View.INVISIBLE);
-        up_times_blocked.setVisibility(View.INVISIBLE);
-        down_times_blocked.setVisibility(View.INVISIBLE);
-        region_1.setVisibility(View.INVISIBLE);
-        region_2.setVisibility(View.INVISIBLE);
-        region_3.setVisibility(View.INVISIBLE);
-        region_4.setVisibility(View.INVISIBLE);
-        region_5.setVisibility(View.INVISIBLE);
-        submit.setVisibility(View.INVISIBLE);
+        amplify.setVisibility(View.INVISIBLE);
     }
-    void showall(){
-        mButtonStartPause.setVisibility(View.VISIBLE);
-        mButtonReset.setVisibility(View.VISIBLE);
-        mTextViewCountDown.setVisibility(View.INVISIBLE);
-        switch_auton.setVisibility(View.VISIBLE);
-        switch_teleop.setVisibility(View.VISIBLE);
+    void teleopview(){
         source_pickup.setVisibility(View.VISIBLE);
-        ground_pickup.setVisibility(View.VISIBLE);
-//      amplify.setVisibility(View.VISIBLE); something wrong with this line it causes program to crash
-        speaker.setVisibility(View.VISIBLE);
-        amp.setVisibility(View.VISIBLE);
-        fail.setVisibility(View.VISIBLE);
-        score.setVisibility(View.VISIBLE);
-        undo.setVisibility(View.VISIBLE);
-        succesful_spotlight.setVisibility(View.VISIBLE);
-        no_try_spotlight.setVisibility(View.VISIBLE);
-        unsuccesful_spotlight.setVisibility(View.VISIBLE);
-        succesful_harmony.setVisibility(View.VISIBLE);
-        no_try_harmony.setVisibility(View.VISIBLE);
-        unsuccesful_harmony.setVisibility(View.VISIBLE);
-        succesful_trap.setVisibility(View.VISIBLE);
-        no_try_trap.setVisibility(View.VISIBLE);
-        unsuccesful_trap.setVisibility(View.VISIBLE);
-        succesful_onstage.setVisibility(View.VISIBLE);
-        no_try_onstage.setVisibility(View.VISIBLE);
-        unsuccesful_onstage.setVisibility(View.VISIBLE);
-        up_times_blocked.setVisibility(View.VISIBLE);
-        down_times_blocked.setVisibility(View.VISIBLE);
-        region_1.setVisibility(View.VISIBLE);
-        region_2.setVisibility(View.VISIBLE);
-        region_3.setVisibility(View.VISIBLE);
-        region_4.setVisibility(View.VISIBLE);
-        region_5.setVisibility(View.VISIBLE);
-        submit.setVisibility(View.VISIBLE);
+        amplify.setVisibility(View.VISIBLE);
     }
 	void amplified(){
 		if(amplifiedv){
@@ -401,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 speakers_failed.setText("0");
                 START_TIME_IN_MILLIS = 15000;
                 resetTimer();
+                autonview();
             }
         });
         switch_teleop.setOnClickListener(new View.OnClickListener() {
@@ -410,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch_auton.setChecked(false);
                 switch_teleop.setChecked(true);
                 START_TIME_IN_MILLIS = 135000;
+                teleopview();
                 resetTimer();}});
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
