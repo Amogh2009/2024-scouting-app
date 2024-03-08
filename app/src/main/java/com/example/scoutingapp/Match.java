@@ -16,19 +16,25 @@ public class Match {
     int total_speaker_teleopv;
     int amp_autonv;
     int amp_teleopv;
-    int totalfails;
+    int dropv;
     String source_to_speaker;
     String spotlightv;
     String buddy_climbv;
     String trapv;
     String onstagev;
     String listv;
+    int shots_blockedv;
+    int blocksv;
+    int times_they_blockedv;
+    int total_failsv;
+    int preloadv;
 
-    public Match(String scoutNamev, String matchNumberv, String teamNumberv, String allianceColorv, int groundPickupAutonv, int groundPickupTeleopv, int sourcePickupAutonv, int sourcePickupTeleopv, int speakerAutonv, int speakerTeleopv, int amplifiedSpeakerTeleopv, int totalSpeakerAutonv, int totalSpeakerTeleopv, int ampAutonv, int ampTeleopv, int totalFails, String sourceToSpeaker, String Spotlightv, String buddyClimbv, String Trapv, String Onstagev, String Listv) {
+    public Match(String scoutNamev, String matchNumberv, String teamNumberv, String allianceColorv, int Preloadv, int groundPickupAutonv, int groundPickupTeleopv, int sourcePickupAutonv, int sourcePickupTeleopv, int speakerAutonv, int speakerTeleopv, int amplifiedSpeakerTeleopv, int totalSpeakerAutonv, int totalSpeakerTeleopv, int ampAutonv, int ampTeleopv, int Dropv, int shotsBlockedv, int timesTheyBlockedv, int totalFailsv, String sourceToSpeaker, String Spotlightv, String buddyClimbv, String Trapv, String Onstagev, String Listv) {
         scout_namev = scoutNamev;
         match_numberv = matchNumberv;
         team_numberv = teamNumberv;
         alliance_colorv = allianceColorv;
+        preloadv = Preloadv;
         ground_pickup_autonv = groundPickupAutonv;
         ground_pickup_teleopv = groundPickupTeleopv;
         source_pickup_autonv = sourcePickupAutonv;
@@ -40,7 +46,10 @@ public class Match {
         total_speaker_teleopv = totalSpeakerTeleopv;
         amp_autonv = ampAutonv;
         amp_teleopv = ampTeleopv;
-        totalfails = totalFails;
+        dropv = Dropv;
+        shots_blockedv = shotsBlockedv;
+        times_they_blockedv = timesTheyBlockedv;
+        total_failsv = totalFailsv;
         source_to_speaker = sourceToSpeaker;
         spotlightv = Spotlightv;
         buddy_climbv = buddyClimbv;
