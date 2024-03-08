@@ -40,10 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void autonview(){
         source_pickup.setVisibility(View.INVISIBLE);
         amplify.setVisibility(View.INVISIBLE);
+        shots_blocked.setVisibility(View.INVISIBLE);
     }
     void teleopview(){
         source_pickup.setVisibility(View.VISIBLE);
         amplify.setVisibility(View.VISIBLE);
+        shots_blocked.setVisibility(View.INVISIBLE);
     }
 	void amplified(){
 		if(amplifiedv){
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	}
     void resetall(){
+        preload_pickup=0;
         source_pickup_autonv=0;
         ground_pickup_autonv=0;
         source_pickup_teleopv=0;
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CountDownTimer mCountDownTimer; private boolean mTimerRunning;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     //variables for data collection
+    int preload_pickup;
     int source_pickup_autonv; int ground_pickup_autonv;
     int source_pickup_teleopv; int ground_pickup_teleopv;
     int speaker_autonv; int amp_autonv;
@@ -388,8 +392,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amplify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                amplifiedv=true;
-                amplified();
+                if(autonv){
+                   amplify.setText("preload");
+                   preload_pickup++;
+                }
+                else if(!autonv){
+                    amplify.setText("amplify");
+                    amplifiedv=true;
+                    amplified();
+                }
             }
         });
         amp.setOnClickListener(new View.OnClickListener() {
