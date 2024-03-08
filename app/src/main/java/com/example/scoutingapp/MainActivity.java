@@ -37,75 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amp.setChecked(false);
         speaker.setChecked(false);
     }
-    void hideall(){
-        mTextViewCountDown.setVisibility(View.INVISIBLE);
-        mButtonStartPause.setVisibility(View.INVISIBLE);
-        mButtonReset.setVisibility(View.INVISIBLE);
-        switch_auton.setVisibility(View.INVISIBLE);
-        switch_teleop.setVisibility(View.INVISIBLE);
+    void autonview(){
         source_pickup.setVisibility(View.INVISIBLE);
-        ground_pickup.setVisibility(View.INVISIBLE);
-//        amplify.setVisibility(View.INVISIBLE); something wrong with this line it causes program to crash
-        speaker.setVisibility(View.INVISIBLE);
-        amp.setVisibility(View.INVISIBLE);
-        fail.setVisibility(View.INVISIBLE);
-        score.setVisibility(View.INVISIBLE);
-        undo.setVisibility(View.INVISIBLE);
-        succesful_spotlight.setVisibility(View.INVISIBLE);
-        no_try_spotlight.setVisibility(View.INVISIBLE);
-        unsuccesful_spotlight.setVisibility(View.INVISIBLE);
-        succesful_harmony.setVisibility(View.INVISIBLE);
-        no_try_harmony.setVisibility(View.INVISIBLE);
-        unsuccesful_harmony.setVisibility(View.INVISIBLE);
-        succesful_trap.setVisibility(View.INVISIBLE);
-        no_try_trap.setVisibility(View.INVISIBLE);
-        unsuccesful_trap.setVisibility(View.INVISIBLE);
-        succesful_onstage.setVisibility(View.INVISIBLE);
-        no_try_onstage.setVisibility(View.INVISIBLE);
-        unsuccesful_onstage.setVisibility(View.INVISIBLE);
-        up_times_blocked.setVisibility(View.INVISIBLE);
-        down_times_blocked.setVisibility(View.INVISIBLE);
-        region_1.setVisibility(View.INVISIBLE);
-        region_2.setVisibility(View.INVISIBLE);
-        region_3.setVisibility(View.INVISIBLE);
-        region_4.setVisibility(View.INVISIBLE);
-        region_5.setVisibility(View.INVISIBLE);
-        submit.setVisibility(View.INVISIBLE);
+        amplify.setVisibility(View.INVISIBLE);
+        shots_blocked.setVisibility(View.INVISIBLE);
     }
-    void showall(){
-        mButtonStartPause.setVisibility(View.VISIBLE);
-        mButtonReset.setVisibility(View.VISIBLE);
-        mTextViewCountDown.setVisibility(View.INVISIBLE);
-        switch_auton.setVisibility(View.VISIBLE);
-        switch_teleop.setVisibility(View.VISIBLE);
+    void teleopview(){
         source_pickup.setVisibility(View.VISIBLE);
-        ground_pickup.setVisibility(View.VISIBLE);
-//      amplify.setVisibility(View.VISIBLE); something wrong with this line it causes program to crash
-        speaker.setVisibility(View.VISIBLE);
-        amp.setVisibility(View.VISIBLE);
-        fail.setVisibility(View.VISIBLE);
-        score.setVisibility(View.VISIBLE);
-        undo.setVisibility(View.VISIBLE);
-        succesful_spotlight.setVisibility(View.VISIBLE);
-        no_try_spotlight.setVisibility(View.VISIBLE);
-        unsuccesful_spotlight.setVisibility(View.VISIBLE);
-        succesful_harmony.setVisibility(View.VISIBLE);
-        no_try_harmony.setVisibility(View.VISIBLE);
-        unsuccesful_harmony.setVisibility(View.VISIBLE);
-        succesful_trap.setVisibility(View.VISIBLE);
-        no_try_trap.setVisibility(View.VISIBLE);
-        unsuccesful_trap.setVisibility(View.VISIBLE);
-        succesful_onstage.setVisibility(View.VISIBLE);
-        no_try_onstage.setVisibility(View.VISIBLE);
-        unsuccesful_onstage.setVisibility(View.VISIBLE);
-        up_times_blocked.setVisibility(View.VISIBLE);
-        down_times_blocked.setVisibility(View.VISIBLE);
-        region_1.setVisibility(View.VISIBLE);
-        region_2.setVisibility(View.VISIBLE);
-        region_3.setVisibility(View.VISIBLE);
-        region_4.setVisibility(View.VISIBLE);
-        region_5.setVisibility(View.VISIBLE);
-        submit.setVisibility(View.VISIBLE);
+        amplify.setVisibility(View.VISIBLE);
+        shots_blocked.setVisibility(View.INVISIBLE);
     }
 	void amplified(){
 		if(amplifiedv){
@@ -125,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	}
     void resetall(){
+        preload_pickup=0;
         source_pickup_autonv=0;
         ground_pickup_autonv=0;
         source_pickup_teleopv=0;
@@ -169,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CountDownTimer mCountDownTimer; private boolean mTimerRunning;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     //variables for data collection
+    int preload_pickup;
     int source_pickup_autonv; int ground_pickup_autonv;
     int source_pickup_teleopv; int ground_pickup_teleopv;
     int speaker_autonv; int amp_autonv;
@@ -190,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int speaker_scoredv=0; int amp_scoredv=0; // for display use only not actual data sent to sheet
 //for switching between auton and teleop
     int speaker_failedv=0; int amp_failedv=0;
-    private TabLayout tablayout;
-    private ViewPager viewpager;
+    //private TabLayout tablayout;
+    //private ViewPager viewpager;
     //textview, editview, and button definitions in order shown on app top to bottom
     EditText scout_name, team_num, match_num;
     TextView mTextViewCountDown;
     Button mButtonStartPause, mButtonReset;
-    MaterialButton switch_to_teleop;
+    //MaterialButton switch_to_teleop;
     ToggleButton red_alliance, blue_alliance;
     TextView speakers_scored,amps_scored;
     TextView speakers_failed,amps_failed;
@@ -221,15 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        switch_to_teleop = findViewById(R.id.switch_to_teleop);
+        //switch_to_teleop = findViewById(R.id.switch_to_teleop);
 
-        tablayout = findViewById(R.id.tablayout);
-        viewpager = findViewById(R.id.viewpager);
-        tablayout.setupWithViewPager(viewpager);
-        VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new auton(), "auton");
-        vpAdapter.addFragment(new teleop(), "teleop");
-        viewpager.setAdapter(vpAdapter);
+        //tablayout = findViewById(R.id.tablayout);
+        //viewpager = findViewById(R.id.viewpager);
+        //tablayout.setupWithViewPager(viewpager);
+        //VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        //vpAdapter.addFragment(new auton(), "auton");
+        //vpAdapter.addFragment(new teleop(), "teleop");
+        //viewpager.setAdapter(vpAdapter);
         //timer buttons
         mTextViewCountDown = findViewById(R.id.mTextViewCountDown);
         mButtonStartPause = findViewById(R.id.mButtonStartPause);
@@ -310,7 +252,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                System.out.println("submit pressed");
                //matches.add(newMatch);
                 String source_to_speaker = "NA";
-                Match newMatch = new Match(scout_namev, match_numberv, team_numberv, alliance_colorv ,ground_pickup_autonv, ground_pickup_teleopv, source_pickup_autonv, source_pickup_teleopv, speaker_autonv, speaker_teleopv, amplified_speaker_teleopv, speaker_autonv, speaker_teleopv+amplified_speaker_teleopv, amp_autonv, amp_teleopv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv, source_to_speaker, spotlightv, buddy_climbv, trapv, onstagev, listv);
+                int preloadv = 0;
+                int shots_blockedv = 0;
+                int times_they_blockedv = 0;
+                Match newMatch = new Match(scout_namev, match_numberv, team_numberv, alliance_colorv, preloadv, ground_pickup_autonv, ground_pickup_teleopv, source_pickup_autonv, source_pickup_teleopv, speaker_autonv, speaker_teleopv, amplified_speaker_teleopv, speaker_autonv, speaker_teleopv+amplified_speaker_teleopv, amp_autonv, amp_teleopv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv, shots_blockedv, times_they_blockedv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv+shots_blockedv, source_to_speaker, spotlightv, buddy_climbv, trapv, onstagev, listv);
                 matches.add(newMatch);
 
 				if (view.getId() == R.id.submit) {
@@ -356,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 for(int i = 0; i < matches.size(); i++){
                     Match match = matches.get(i);
-                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv ,match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.totalfails, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv);
+                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv , match.preloadv, match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.dropv, match.shots_blockedv, match.times_they_blockedv, match.total_failsv, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv);
                 }
 
                 if (view.getId() == R.id.upload) {
@@ -401,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 speakers_failed.setText("0");
                 START_TIME_IN_MILLIS = 15000;
                 resetTimer();
+                autonview();
             }
         });
         switch_teleop.setOnClickListener(new View.OnClickListener() {
@@ -410,6 +356,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch_auton.setChecked(false);
                 switch_teleop.setChecked(true);
                 START_TIME_IN_MILLIS = 135000;
+                teleopview();
                 resetTimer();}});
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -445,8 +392,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amplify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                amplifiedv=true;
-                amplified();
+                if(autonv){
+                   amplify.setText("preload");
+                   preload_pickup++;
+                }
+                else if(!autonv){
+                    amplify.setText("amplify");
+                    amplifiedv=true;
+                    amplified();
+                }
             }
         });
         amp.setOnClickListener(new View.OnClickListener() {
@@ -712,6 +666,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mButtonStartPause.setText("Start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
+
+                /*if(autonv){
+                    autonv=false;
+                    switch_auton.setChecked(false);
+                    switch_teleop.setChecked(true);
+                }*/
             }
         }.start();
 
@@ -738,11 +698,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         mTextViewCountDown.setText(timeLeftFormatted);
     }
-    private void saveData(String name, String matchnumber, String teamnumber, String alliance_color, int ground_pickup_auton, int ground_pickup_teleop, int source_pickup_auton, int source_pickup_teleop, int regular_note_auton, int regular_note_teleop, int amplified_note, int speaker_notes_auton, int speaker_notes_teleop, int amp_notes_auton, int amp_notes_teleop, int drop, String source_to_speaker, String spotlight, String buddy_climb, String trap, String onstage, String list) {
-        String url = "https://script.google.com/macros/s/AKfycbzfPRl0QhBQ_meqcIeDAb1qwZKtK-BQ-IO9uiyBwjRCu0xmr2__KJEKbmj0ri46KTsp/exec?";
+    private void saveData(String name, String matchnumber, String teamnumber, String alliance_color, int preload, int ground_pickup_auton, int ground_pickup_teleop, int source_pickup_auton, int source_pickup_teleop, int regular_note_auton, int regular_note_teleop, int amplified_note, int speaker_notes_auton, int speaker_notes_teleop, int amp_notes_auton, int amp_notes_teleop, int drop, int blocked_shots, int times_they_blocked, int total_fails,  String source_to_speaker, String spotlight, String buddy_climb, String trap, String onstage, String list) {
+        String url = "https://script.google.com/macros/s/AKfycbw6GYL5Vqa3Bo3DiBoRnBx6yvVRvbLR_fkUfnFIANa7Q1seGizskp69DBASKm5p9qo2/exec?";
         url = url + "action=create&name=" + name + "&matchnumber=" + matchnumber + "&teamnumber=" + teamnumber;
-        url = url + "&color=" + alliance_color + "&groundpickupauton=" + ground_pickup_auton + "&groundpickupteleop=" + ground_pickup_teleop + "&sourcepickupauton=" + source_pickup_auton + "&sourcepickupteleop=" + source_pickup_teleop + "&regularnoteauton=" + regular_note_auton + "&regularnoteteleop=" + regular_note_teleop;
-        url = url + "&amplifiednote=" + amplified_note + "&speakernotesauton=" + speaker_notes_auton + "&speakernotesteleop=" + speaker_notes_teleop + "&ampnotesauton=" + amp_notes_auton + "&ampnotesteleop=" + amp_notes_teleop + "&drop=" + drop + "&sourcetospeaker=" + source_to_speaker + "&spotlight=" + spotlight;
+        url = url + "&color=" + alliance_color + "&preload=" + preload + "&groundpickupauton=" + ground_pickup_auton + "&groundpickupteleop=" + ground_pickup_teleop + "&sourcepickupauton=" + source_pickup_auton + "&sourcepickupteleop=" + source_pickup_teleop + "&regularnoteauton=" + regular_note_auton + "&regularnoteteleop=" + regular_note_teleop;
+        url = url + "&amplifiednote=" + amplified_note + "&speakernotesauton=" + speaker_notes_auton + "&speakernotesteleop=" + speaker_notes_teleop + "&ampnotesauton=" + amp_notes_auton + "&ampnotesteleop=" + amp_notes_teleop + "&drop=" + drop + "&blockedshots=" + blocked_shots + "&timestheyblocked=" + times_they_blocked + "&totalfails=" + total_fails + "&sourcetospeaker=" + source_to_speaker + "&spotlight=" + spotlight;
         url = url + "&buddyclimb=" + buddy_climb + "&trap=" + trap + "&onstage=" + onstage + "&list=" + list;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

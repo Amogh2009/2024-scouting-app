@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScoutingApp"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.actions"
