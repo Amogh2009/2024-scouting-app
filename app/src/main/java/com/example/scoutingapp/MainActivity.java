@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.app.Notification;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -61,18 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amplify.setVisibility(View.VISIBLE);
         shots_blocked.setVisibility(View.INVISIBLE);
     }
-	private Handler mHandler = new Handler();
-	private boolean mIsFlashing = false;
-	private static final int FLASH_DURATION = 10000; //in ms
-	private static final int FLASH_INTERVAL = 1000;
-	void toggleAmplify() {
-		if (amplify.isChecked()) {
-			amplify.setChecked(false);
-			//amplify.setBackgroundColor(Color.RED);
-		} else {
-			amplify.setChecked(true);
-			//amplify.setBackgroundColor(Color.GREEN);
-		}
+	private Handler handler = new Handler(Looper.getMainLooper());
+	public void toggleAmplify() {
+		amplify.setSelected(!amplify.isSelected());
 	}
 	/*void amplified() {
 		if (amplifiedv) {
@@ -92,8 +87,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			}
 		}
 	}*/
-	void amplified() {
-		// placeholder for amplified functionality
+	public void amplified() {
+		amplify.setEnabled(false);
+
+		Runnable flickerRunnable = new Runnable() {
+			private int remainingFlickers = 10;
+
+			@Override
+			public void run() {
+				if (remainingFlickers > 0) {
+					toggleAmplify();
+					remainingFlickers--;
+
+					handler.postDelayed(this, 1000);
+				} else {
+					amplify.setEnabled(true);
+					amplify.setSelected(false);
+				}
+			}
+		};
+
+		handler.post(flickerRunnable);
 	}
     void resetall(){
         preload_pickup=0;
@@ -281,7 +295,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                System.out.println("submit pressed");
-				Toast.makeText(context, "Saved your data locally!", Toast.LENGTH_SHORT).show();
+			   // make a toast that says submission done
+				Toast.makeText(MainActivity.this, "Submission done", Toast.LENGTH_SHORT).show();
                //matches.add(newMatch);
                 String source_to_speaker = "NA";
                 int preloadv = 0;
