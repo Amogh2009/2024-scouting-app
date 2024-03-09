@@ -281,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                System.out.println("submit pressed");
+				Toast.makeText(context, "Saved your data locally!", Toast.LENGTH_SHORT).show();
                //matches.add(newMatch);
                 String source_to_speaker = "NA";
                 int preloadv = 0;
@@ -746,25 +747,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			public void onErrorResponse(VolleyError error) {
 				Toast.makeText(context, "Data upload failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
 
-				// Create notification channel for Android Oreo and higher
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-					CharSequence channelName = "DataUploadChannel";
-					String channelDescription = "Notification channel for data upload failures";
-					NotificationChannel channel = new NotificationChannel("data_upload_channel", channelName, NotificationManager.IMPORTANCE_DEFAULT);
-					channel.setDescription(channelDescription);
-					NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-					notificationManager.createNotificationChannel(channel);
-				}
 
-				// Create a notification for failed data upload
-				NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "data_upload_channel")
-					.setSmallIcon(R.drawable.msetfish) // Replace R.drawable.notification_icon with an appropriate icon resource ID
-					.setContentTitle("Data upload failed")
-					.setContentText("Error: " + error.getMessage())
-					.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-				NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-				notificationManager.notify(1, builder.build());
 			}
 		});
         queue.add(stringRequest);
