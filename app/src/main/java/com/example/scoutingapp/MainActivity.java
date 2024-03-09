@@ -302,8 +302,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int preloadv = 0;
                 int shots_blockedv = 0;
                 int times_they_blockedv = 0;
-                Match newMatch = new Match(scout_namev, match_numberv, team_numberv, alliance_colorv, preloadv, ground_pickup_autonv, ground_pickup_teleopv, source_pickup_autonv, source_pickup_teleopv, speaker_autonv, speaker_teleopv, amplified_speaker_teleopv, speaker_autonv, speaker_teleopv+amplified_speaker_teleopv, amp_autonv, amp_teleopv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv, shots_blockedv, times_they_blockedv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv+shots_blockedv, source_to_speaker, spotlightv, buddy_climbv, trapv, onstagev, listv);
-                matches.add(newMatch);
+                //Match newMatch = new Match(scout_namev, match_numberv, team_numberv, alliance_colorv, preloadv, ground_pickup_autonv, ground_pickup_teleopv, source_pickup_autonv, source_pickup_teleopv, speaker_autonv, speaker_teleopv, amplified_speaker_teleopv, speaker_autonv, speaker_teleopv+amplified_speaker_teleopv, amp_autonv, amp_teleopv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv, shots_blockedv, times_they_blockedv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv+shots_blockedv, source_to_speaker, spotlightv, buddy_climbv, trapv, onstagev, listv);
+                //matches.add(newMatch);
+                saveData(scout_namev, match_numberv, team_numberv, alliance_colorv, preloadv, ground_pickup_autonv, ground_pickup_teleopv, source_pickup_autonv, source_pickup_teleopv, speaker_autonv, speaker_teleopv, amplified_speaker_teleopv, speaker_autonv, speaker_teleopv+amplified_speaker_teleopv, amp_autonv, amp_teleopv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv, shots_blockedv, times_they_blockedv, amp_fail_autonv+amp_fail_teleopv+speaker_fail_autonv+speaker_fail_teleopv+shots_blockedv, source_to_speaker, spotlightv, buddy_climbv, trapv, onstagev, listv, MainActivity.this);
 
 				if (view.getId() == R.id.submit) {
 					source_pickup.setChecked(false);
@@ -343,21 +344,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for(int i = 0; i < matches.size(); i++){
-                    Match match = matches.get(i);
-                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv , match.preloadv, match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.dropv, match.shots_blockedv, match.times_they_blockedv, match.total_failsv, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv,MainActivity.this);
-                }
-
-                if (view.getId() == R.id.upload) {
-                    scout_name.setText("");
-                    matches.clear();
-                }
-            }
-
-        });
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                for(int i = 0; i < matches.size(); i++){
+//                    Match match = matches.get(i);
+//                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv , match.preloadv, match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.dropv, match.shots_blockedv, match.times_they_blockedv, match.total_failsv, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv,MainActivity.this);
+//                }
+//
+//                if (view.getId() == R.id.upload) {
+//                    scout_name.setText("");
+//                    matches.clear();
+//                }
+//            }
+//
+//        });
 
         red_alliance.setOnClickListener(new View.OnClickListener() {
             @Override
