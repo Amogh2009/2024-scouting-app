@@ -1,4 +1,5 @@
 package com.example.scoutingapp;
+import android.os.Handler;
 import android.content.Intent;
 import android.graphics.Color;
 import android.annotation.SuppressLint;
@@ -6,11 +7,24 @@ import android.os.CountDownTimer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
+import androidx.core.app.NotificationManagerCompat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
+import androidx.core.app.NotificationCompat;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -47,22 +61,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         amplify.setVisibility(View.VISIBLE);
         shots_blocked.setVisibility(View.INVISIBLE);
     }
-	void amplified(){
-		if(amplifiedv){
-			int x = amplify_timerv-10;
-            int i =  amplify_timerv;
-			if(i > 0 && i != x) {
-				if(amplify.isChecked()){
-					amplify.setChecked(false);
-					//amplify.setBackgroundColor(Color.RED);
-				}
-				else if(!amplify.isChecked()){
-					amplify.setChecked(true);
-					//amplify.setBackgroundColor(Color.GREEN);
-				}
+	private Handler mHandler = new Handler();
+	private boolean mIsFlashing = false;
+	private static final int FLASH_DURATION = 10000; //in ms
+	private static final int FLASH_INTERVAL = 1000;
+	void toggleAmplify() {
+		if (amplify.isChecked()) {
+			amplify.setChecked(false);
+			//amplify.setBackgroundColor(Color.RED);
+		} else {
+			amplify.setChecked(true);
+			//amplify.setBackgroundColor(Color.GREEN);
+		}
+	}
+	/*void amplified() {
+		if (amplifiedv) {
+			if (!mIsFlashing) {
+				mIsFlashing = true;
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						toggleAmplify();
+						if (System.currentTimeMillis() < (startTime + FLASH_DURATION)) {
+							mHandler.postDelayed(this, FLASH_INTERVAL);
+						} else {
+							mIsFlashing = false;
+						}
+					}
+				}, FLASH_INTERVAL);
 			}
 		}
-
+	}*/
+	void amplified() {
+		// placeholder for amplified functionality
 	}
     void resetall(){
         preload_pickup=0;
@@ -301,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 for(int i = 0; i < matches.size(); i++){
                     Match match = matches.get(i);
-                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv , match.preloadv, match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.dropv, match.shots_blockedv, match.times_they_blockedv, match.total_failsv, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv);
+                    saveData(match.scout_namev, match.match_numberv, match.team_numberv, match.alliance_colorv , match.preloadv, match.ground_pickup_autonv, match.ground_pickup_teleopv, match.source_pickup_autonv, match.source_pickup_teleopv, match.speaker_autonv, match.speaker_teleopv, match.amplified_speaker_teleopv, match.total_speaker_autonv, match.total_speaker_teleopv, match.amp_autonv, match.amp_teleopv, match.dropv, match.shots_blockedv, match.times_they_blockedv, match.total_failsv, match.source_to_speaker, match.spotlightv, match.buddy_climbv, match.trapv, match.onstagev, match.listv,MainActivity.this);
                 }
 
                 if (view.getId() == R.id.upload) {
@@ -698,25 +729,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         mTextViewCountDown.setText(timeLeftFormatted);
     }
-    private void saveData(String name, String matchnumber, String teamnumber, String alliance_color, int preload, int ground_pickup_auton, int ground_pickup_teleop, int source_pickup_auton, int source_pickup_teleop, int regular_note_auton, int regular_note_teleop, int amplified_note, int speaker_notes_auton, int speaker_notes_teleop, int amp_notes_auton, int amp_notes_teleop, int drop, int blocked_shots, int times_they_blocked, int total_fails,  String source_to_speaker, String spotlight, String buddy_climb, String trap, String onstage, String list) {
+    private void saveData(String name, String matchnumber, String teamnumber, String alliance_color, int preload, int ground_pickup_auton, int ground_pickup_teleop, int source_pickup_auton, int source_pickup_teleop, int regular_note_auton, int regular_note_teleop, int amplified_note, int speaker_notes_auton, int speaker_notes_teleop, int amp_notes_auton, int amp_notes_teleop, int drop, int blocked_shots, int times_they_blocked, int total_fails,  String source_to_speaker, String spotlight, String buddy_climb, String trap, String onstage, String list, Context context) {
         String url = "https://script.google.com/macros/s/AKfycbw6GYL5Vqa3Bo3DiBoRnBx6yvVRvbLR_fkUfnFIANa7Q1seGizskp69DBASKm5p9qo2/exec?";
         url = url + "action=create&name=" + name + "&matchnumber=" + matchnumber + "&teamnumber=" + teamnumber;
         url = url + "&color=" + alliance_color + "&preload=" + preload + "&groundpickupauton=" + ground_pickup_auton + "&groundpickupteleop=" + ground_pickup_teleop + "&sourcepickupauton=" + source_pickup_auton + "&sourcepickupteleop=" + source_pickup_teleop + "&regularnoteauton=" + regular_note_auton + "&regularnoteteleop=" + regular_note_teleop;
         url = url + "&amplifiednote=" + amplified_note + "&speakernotesauton=" + speaker_notes_auton + "&speakernotesteleop=" + speaker_notes_teleop + "&ampnotesauton=" + amp_notes_auton + "&ampnotesteleop=" + amp_notes_teleop + "&drop=" + drop + "&blockedshots=" + blocked_shots + "&timestheyblocked=" + times_they_blocked + "&totalfails=" + total_fails + "&sourcetospeaker=" + source_to_speaker + "&spotlight=" + spotlight;
         url = url + "&buddyclimb=" + buddy_climb + "&trap=" + trap + "&onstage=" + onstage + "&list=" + list;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("Received response");
-                System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Received error");
-                System.out.println(error.getMessage());
-            }
-        });
+
+		StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				Toast.makeText(context, "Data uploaded successfully", Toast.LENGTH_SHORT).show();
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Toast.makeText(context, "Data upload failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+				// Create notification channel for Android Oreo and higher
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					CharSequence channelName = "DataUploadChannel";
+					String channelDescription = "Notification channel for data upload failures";
+					NotificationChannel channel = new NotificationChannel("data_upload_channel", channelName, NotificationManager.IMPORTANCE_DEFAULT);
+					channel.setDescription(channelDescription);
+					NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+					notificationManager.createNotificationChannel(channel);
+				}
+
+				// Create a notification for failed data upload
+				NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "data_upload_channel")
+					.setSmallIcon(R.drawable.msetfish) // Replace R.drawable.notification_icon with an appropriate icon resource ID
+					.setContentTitle("Data upload failed")
+					.setContentText("Error: " + error.getMessage())
+					.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+				NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+				notificationManager.notify(1, builder.build());
+			}
+		});
         queue.add(stringRequest);
     }
 //    void assignId(MaterialButton btn, int id) {
