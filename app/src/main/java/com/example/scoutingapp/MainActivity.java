@@ -760,7 +760,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		}, new Response.ErrorListener() {
 			@Override
 			public void onErrorResponse(VolleyError error) {
-				Toast.makeText(context, "Data upload failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "Data upload failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
 
 
 			}
